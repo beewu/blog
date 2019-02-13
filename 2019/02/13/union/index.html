@@ -26,7 +26,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">isme</h3>
+    <h3 class="subtitle">数据存储之结构体联合体（共同体）妙用</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -43,20 +43,26 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">isme</h1>
+        <h1 class="title">数据存储之结构体联合体（共同体）妙用</h1>
         <div class="stuff">
-            <span>十一月 10, 2018</span>
+            <span>二月 13, 2019</span>
             
   <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/随笔/">随笔</a></li></ul>
 
 
         </div>
         <div class="content markdown">
-            <p>Welcome to my blog , Would you like to make friends with me ?</p>
+            <blockquote>
+<p>在进行某些算法的C语言编程的时候，需要使几种不同类型的变量存放到同一段内存单元中。也就是使用覆盖技术，几个变量互相覆盖。这种几个不同的变量共同占用一段内存的结构，在C语言中，被称作“共用体”类型结构，简称共用体，也叫联合体。突然觉得这个挺有意思的，可以通过联合体特性存取结构体数据。</p>
+</blockquote>
+<hr>
+<hr>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;EEPROM.h&gt;</span><br><span class="line">#define SIZE 7</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">static union</span><br><span class="line">&#123;</span><br><span class="line">  struct</span><br><span class="line">  &#123;</span><br><span class="line">    char  who;         //占1字节</span><br><span class="line">    int   age;         //占2字节</span><br><span class="line">    float score;       //占4字节</span><br><span class="line">   &#125; data;             //结构体</span><br><span class="line">  char buf[SIZE];      //与结构体共用内存 1 + 2 + 4 = 7字节 用于间接存取结构体中数据。</span><br><span class="line">&#125; myData;              //联合体</span><br><span class="line"></span><br><span class="line">void setup() &#123;</span><br><span class="line"></span><br><span class="line">  Serial.begin(115200);</span><br><span class="line"></span><br><span class="line">  Serial.print(&quot;结构体内存所占字节数：&quot;);</span><br><span class="line">  Serial.println(sizeof(myData.data));</span><br><span class="line"></span><br><span class="line">  //初始化赋值</span><br><span class="line">  myData.data.who =      73;     //ascii码为 “I”</span><br><span class="line">  myData.data.age =      13;</span><br><span class="line">  myData.data.score = 99.99;</span><br><span class="line"></span><br><span class="line">  //存入EEPROM</span><br><span class="line">  for (int i = 0;i &lt; SIZE;i++) EEPROM.write(i, myData.buf[i]);</span><br><span class="line"></span><br><span class="line">  //读取EEPROM</span><br><span class="line">  for (int i = 0;i &lt; SIZE;i++) myData.buf[i] = EEPROM.read(i);</span><br><span class="line"></span><br><span class="line">  //串口打印数据</span><br><span class="line">  Serial.println(myData.data.who);</span><br><span class="line">  Serial.println(myData.data.age);</span><br><span class="line">  Serial.println(myData.data.score);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
-                <source type="audio/mpeg" src="/music/xingshen.mp3">
+                <source type="audio/mpeg" src="/music/time.mp3">
             </audio>
             
         </div>
